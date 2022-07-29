@@ -30,3 +30,11 @@ Some instructions on getting the deployment working properly:
 Live demo: 
 
 [https://svelte-ecom.herokuapp.com/](https://svelte-ecom.herokuapp.com/)
+
+## Unexplored Issues
+The initial build doesn't cover any of these issues:
+
+- Authentication & Authorization
+- Logging
+- Feature Flag Integration
+- Unit/E2E Testing
