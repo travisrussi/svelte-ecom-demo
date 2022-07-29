@@ -3,10 +3,71 @@
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<meta http-equiv="x-ua-compatible" content="ie=edge" />
+
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+		<!-- Bootstrap core CSS -->
+		<link href="%sveltekit.assets%/css/bootstrap.min.css" rel="stylesheet" />
+		<!-- Material Design Bootstrap -->
+		<link href="%sveltekit.assets%/css/mdb.min.css" rel="stylesheet" />
+		<!-- Your custom styles (optional) -->
+		<link href="%sveltekit.assets%/css/style.min.css" rel="stylesheet" />
+		<style type="text/css">
+			html,
+			body,
+			header,
+			.carousel {
+				height: 60vh;
+			}
+
+			@media (max-width: 740px) {
+				html,
+				body,
+				header,
+				.carousel {
+					height: 100vh;
+				}
+			}
+
+			@media (min-width: 800px) and (max-width: 850px) {
+				html,
+				body,
+				header,
+				.carousel {
+					height: 100vh;
+				}
+			}
+
+			a {
+				cursor: pointer;
+			}
+			.link {
+				cursor: pointer;
+			}
+		</style>
+
+		<title>Svelte eCom Demo</title>
+
 		%sveltekit.head%
 	</head>
 	<body>
-		<div>%sveltekit.body%</div>
+		%sveltekit.body%
+
+		<!-- SCRIPTS -->
+		<!-- JQuery -->
+		<script type="text/javascript" src="%sveltekit.assets%/js/jquery-3.4.1.min.js"></script>
+		<!-- Bootstrap tooltips -->
+		<script type="text/javascript" src="%sveltekit.assets%/js/popper.min.js"></script>
+		<!-- Bootstrap core JavaScript -->
+		<script type="text/javascript" src="%sveltekit.assets%/js/bootstrap.min.js"></script>
+		<!-- MDB core JavaScript -->
+		<script type="text/javascript" src="%sveltekit.assets%/js/mdb.min.js"></script>
+		<!-- Initializations -->
+		<script type="text/javascript">
+			// Animations initialization
+			new WOW().init();
+		</script>
 	</body>
 </html>
