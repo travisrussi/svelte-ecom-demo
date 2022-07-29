@@ -220,7 +220,7 @@
 							type="text"
 							placeholder="Search"
 							aria-label="Search"
-							value={$currentSearch}
+							value={$currentSearch || ''}
 							on:input={(e) => setSearch(e.target.value)}
 						/>
 					</div>
