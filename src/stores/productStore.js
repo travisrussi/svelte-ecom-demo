@@ -118,6 +118,39 @@ export const loadProducts = async ({ limit, skip, category, search }) => {
 	}
 };
 
+export const getProduct = async (productId) => {
+	let product;
+
+	var existingProducts = get(products);
+	console.log('productStore', 'getProduct', 'existingProducts', existingProducts);
+
+	if (!_.isNil(existingProducts) && existingProducts.length > 0) {
+		product = _.find(existingProducts, (p) => {
+			return p.id == productId;
+		});
+	}
+
+	if (_.isNil(product)) {
+		product = await loadProduct(productId);
+	}
+
+	console.log('productStore', 'getProduct', 'product', product);
+
+	return product;
+};
+
+async function loadProduct(productId) {
+	let fetchUrl = `${baseUrl}/products/${productId}`;
+
+	const jsonResponse = await fetch(fetchUrl)
+		.then((r) => r.text())
+		.then((json) => {
+			return JSON.parse(json);
+		});
+
+	return jsonResponse;
+}
+
 function buildLoadProductUrl({ limit, skip, category, search }) {
 	let fetchUrl = `${baseUrl}/products`;
 
@@ -144,32 +177,11 @@ function buildLoadProductUrl({ limit, skip, category, search }) {
 }
 
 function updatePagination({ limit, skip, total }) {
-	// total = 100
-	// limit = 10
-	// skip = 0
-	// pageTotal = 100/10 = 10
-	// pageCurrent = 100/0 + 1 = 1
-
 	let pageTotal = Math.round(total / limit);
 	let pageCurrent = 1;
 	if (skip > 0) {
 		pageCurrent = Math.round(skip / limit) + 1;
 	}
-
-	// console.log(
-	// 	'productStore',
-	// 	'updatePagination',
-	// 	'total',
-	// 	total,
-	// 	'limit',
-	// 	limit,
-	// 	'skip',
-	// 	skip,
-	// 	'pageCurrent',
-	// 	pageCurrent,
-	// 	'pageTotal',
-	// 	pageTotal
-	// );
 
 	pagination.set({ limit, skip, total, pageTotal, pageCurrent });
 }
