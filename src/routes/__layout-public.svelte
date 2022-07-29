@@ -1,3 +1,8 @@
+<script>
+	import _ from 'lodash';
+	import { cartItems } from '../stores/cartStore.js';
+</script>
+
 <!-- Navbar -->
 <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
 	<div class="container">
@@ -60,7 +65,9 @@
 			<ul class="navbar-nav nav-flex-icons">
 				<li class="nav-item">
 					<a class="nav-link waves-effect">
-						<span class="badge red z-depth-1 mr-1"> 1 </span>
+						{#if $cartItems.length > 0}
+							<span class="badge red z-depth-1 mr-1"> {$cartItems.length} </span>
+						{/if}
 						<i class="fas fa-shopping-cart" />
 						<span class="clearfix d-none d-sm-inline-block"> Cart </span>
 					</a>

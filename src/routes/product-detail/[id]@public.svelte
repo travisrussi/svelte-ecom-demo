@@ -1,5 +1,4 @@
 <script context="module">
-	import _ from 'lodash';
 	import { getProduct } from '../../stores/productStore.js';
 
 	/** @type {import('./__types/[slug]').Load} */
@@ -9,7 +8,7 @@
 		let productId = params.id;
 		let product = await getProduct(productId);
 
-		console.log('product-detail', 'load', 'productId', productId, 'product', product);
+		// console.log('product-detail', 'load', 'productId', productId, 'product', product);
 
 		return {
 			props: {
@@ -21,8 +20,26 @@
 </script>
 
 <script>
+	import _ from 'lodash';
+	import { goto } from '$app/navigation';
+	import { addItemToCart } from '../../stores/cartStore.js';
+
 	// export let productId;
 	export let product = {};
+	let quantity = 2;
+
+	const setQuantity = (newQuantity) => {
+		// console.log('product-detail', 'setQuantity', 'newQuantity', newQuantity, 'quantity', quantity);
+		quantity = newQuantity;
+	};
+
+	const addCurentItemToCart = () => {
+		if (!_.isNil(product) && !_.isNil(product.id) && quantity > 0) {
+			// console.log('product-detail', 'addCurentItemToCart', product.id, quantity);
+			addItemToCart({ product, quantity });
+			goto('/checkout');
+		}
+	};
 </script>
 
 <!--Main layout-->
@@ -59,16 +76,17 @@
 						<!-- Default input -->
 						<input
 							type="number"
-							value="1"
-							aria-label="Search"
+							aria-label="Quantity"
 							class="form-control"
 							style="width: 100px"
+							value={quantity || 1}
+							on:change={(e) => setQuantity(e.target.value)}
 						/>
 						<!-- <button class="btn btn-primary btn-md my-0 p" type="submit"
 							>Add to cart
 							<i class="fas fa-shopping-cart ml-1" />
 						</button> -->
-						<a href="/checkout" class="btn btn-primary btn-md my-0 p"
+						<a on:click={() => addCurentItemToCart()} class="btn btn-primary btn-md my-0 p"
 							>Add to Cart <i class="fas fa-shopping-cart ml-1" /></a
 						>
 					</form>

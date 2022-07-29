@@ -122,7 +122,7 @@ export const getProduct = async (productId) => {
 	let product;
 
 	var existingProducts = get(products);
-	console.log('productStore', 'getProduct', 'existingProducts', existingProducts);
+	// console.log('productStore', 'getProduct', 'existingProducts', existingProducts);
 
 	if (!_.isNil(existingProducts) && existingProducts.length > 0) {
 		product = _.find(existingProducts, (p) => {
@@ -134,7 +134,7 @@ export const getProduct = async (productId) => {
 		product = await loadProduct(productId);
 	}
 
-	console.log('productStore', 'getProduct', 'product', product);
+	// console.log('productStore', 'getProduct', 'product', product);
 
 	return product;
 };
