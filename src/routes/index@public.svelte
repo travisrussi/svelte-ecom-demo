@@ -32,7 +32,7 @@
 
 <!--Main layout-->
 <main>
-	<div class="container">
+	<div class="container mt-10">
 		<!--Navbar-->
 		<nav class="navbar navbar-expand-lg navbar-dark mdb-color lighten-3 mt-3 mb-5">
 			<!-- Navbar brand -->

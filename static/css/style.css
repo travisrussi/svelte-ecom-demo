@@ -53,3 +53,7 @@ body,
 			.link {
 				cursor: pointer;
 			}
+
+			.mt-10 {
+				margin-top: 80px;
+			}
