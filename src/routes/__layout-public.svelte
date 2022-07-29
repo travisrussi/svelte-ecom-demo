@@ -32,13 +32,13 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<!-- Left -->
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active">
-					<a class="nav-link waves-effect" href="#"
-						>Home
-						<span class="sr-only">(current)</span>
+				<li class="nav-item">
+					<a class="nav-link waves-effect" href="/"
+						>Products
+						<!-- <span class="sr-only">(current)</span> -->
 					</a>
 				</li>
-				<li class="nav-item">
+				<!-- <li class="nav-item">
 					<a
 						class="nav-link waves-effect"
 						href="https://mdbootstrap.com/docs/jquery/"
@@ -58,13 +58,13 @@
 						href="https://mdbootstrap.com/education/bootstrap/"
 						target="_blank">Free tutorials</a
 					>
-				</li>
+				</li> -->
 			</ul>
 
 			<!-- Right -->
 			<ul class="navbar-nav nav-flex-icons">
 				<li class="nav-item">
-					<a class="nav-link waves-effect">
+					<a class="nav-link waves-effect" href="/checkout">
 						{#if $cartItems.length > 0}
 							<span class="badge red z-depth-1 mr-1"> {$cartItems.length} </span>
 						{/if}
@@ -72,7 +72,7 @@
 						<span class="clearfix d-none d-sm-inline-block"> Cart </span>
 					</a>
 				</li>
-				<li class="nav-item">
+				<!-- <li class="nav-item">
 					<a
 						href="https://www.facebook.com/mdbootstrap"
 						class="nav-link waves-effect"
@@ -94,7 +94,7 @@
 					>
 						<i class="fab fa-github mr-2" />MDB GitHub
 					</a>
-				</li>
+				</li> -->
 			</ul>
 		</div>
 	</div>
