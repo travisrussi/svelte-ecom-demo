@@ -1,6 +1,10 @@
 {
 	"name": "svelte-ecom-demo",
 	"version": "0.0.1",
+	"engines": {
+		"node": "16.x",
+		"npm": "8.x"
+	},
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
@@ -9,7 +13,8 @@
 		"prepare": "svelte-kit sync",
 		"test": "playwright test",
 		"lint": "prettier --check --plugin-search-dir=. . && eslint .",
-		"format": "prettier --write --plugin-search-dir=. ."
+		"format": "prettier --write --plugin-search-dir=. .",
+		"start": "node build/index.js"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.22.2",
@@ -25,6 +30,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@sveltejs/adapter-node": "^1.0.0-next.85",
 		"lodash": "^4.17.21"
 	}
 }
