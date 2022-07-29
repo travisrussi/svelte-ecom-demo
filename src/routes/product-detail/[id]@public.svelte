@@ -26,7 +26,7 @@
 
 	// export let productId;
 	export let product = {};
-	let quantity = 2;
+	let quantity = 1;
 
 	const setQuantity = (newQuantity) => {
 		// console.log('product-detail', 'setQuantity', 'newQuantity', newQuantity, 'quantity', quantity);
