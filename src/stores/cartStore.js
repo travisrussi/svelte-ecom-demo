@@ -78,7 +78,7 @@ const setCartItems = (newCartItems) => {
 		localStorage.setItem('cart-items', JSON.stringify(newCartItems));
 	}
 
-	console.log('cartStore', 'setCartItems', 'newCartItems', newCartItems);
+	// console.log('cartStore', 'setCartItems', 'newCartItems', newCartItems);
 
 	updateCartTotal();
 };
@@ -111,7 +111,7 @@ export const applyPromoCode = () => {
 	// TODO: validate code and get discount percent
 	// just hard-coded for testing at 20%
 
-	console.log('cartStore', 'applyPromoCode');
+	// console.log('cartStore', 'applyPromoCode');
 	updateCartTotal();
 };
 
@@ -135,7 +135,7 @@ function updateCartTotal() {
 		_cartTotal = parseFloat(_cartTotal).toFixed(2) * 1;
 	}
 
-	console.log('cartStore', 'updateCartTotal', '_cartTotal', _cartTotal, '_cartItems', _cartItems);
+	// console.log('cartStore', 'updateCartTotal', '_cartTotal', _cartTotal, '_cartItems', _cartItems);
 
 	cartTotal.set(_cartTotal);
 
