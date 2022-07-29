@@ -6,7 +6,7 @@ export const currentLimit = writable();
 export const currentSkip = writable();
 export const categories = writable([]);
 export const products = writable([]);
-export const searchResult = writable({ total: 0, skip: 0, limit: 0 });
+export const pagination = writable({ total: 0, skip: 0, limit: 0, pageTotal: 0, pageCurrent: 0 });
 
 const baseUrl = 'https://dummyjson.com';
 
@@ -35,6 +35,9 @@ export const setCurrentCategory = async (category) => {
 		currentSearch.set(null);
 	}
 
+	// reset pagination
+	currentSkip.set(0);
+
 	currentCategory.set(category);
 	await loadProducts({});
 };
@@ -48,6 +51,9 @@ export const setCurrentSearch = async (search) => {
 		currentCategory.set(null);
 	}
 
+	// reset pagination
+	currentSkip.set(0);
+
 	currentSearch.set(search);
 	await loadProducts({});
 };
@@ -56,10 +62,10 @@ export const loadProducts = async ({ limit, skip, category, search }) => {
 	// using DummyJson to populate data
 
 	if (!_.isNil(limit)) {
-		currentLimit.set(limit);
+		currentLimit.set(limit * 1);
 	}
 	if (!_.isNil(skip)) {
-		currentSkip.set(skip);
+		currentSkip.set(skip * 1);
 	}
 	if (!_.isNil(category)) {
 		currentCategory.set(category);
@@ -74,7 +80,17 @@ export const loadProducts = async ({ limit, skip, category, search }) => {
 		category: get(currentCategory),
 		search: get(currentSearch)
 	});
-	// console.log('stores', 'productStore', 'loadProducts', 'fetchUrl', fetchUrl);
+	console.log(
+		'stores',
+		'productStore',
+		'loadProducts',
+		'fetchUrl',
+		fetchUrl,
+		'skip',
+		skip,
+		'currentSkip',
+		get(currentSkip)
+	);
 
 	const jsonResponse = await fetch(fetchUrl)
 		.then((r) => r.text())
@@ -91,7 +107,8 @@ export const loadProducts = async ({ limit, skip, category, search }) => {
 			'loadProducts',
 			_.pick(jsonResponse, ['total', 'skip', 'limit'])
 		);
-		searchResult.set(_.pick(jsonResponse, ['total', 'skip', 'limit']));
+
+		updatePagination(_.pick(jsonResponse, ['total', 'skip', 'limit']));
 
 		if (jsonResponse.products) {
 			products.set(jsonResponse.products);
@@ -124,4 +141,35 @@ function buildLoadProductUrl({ limit, skip, category, search }) {
 	}
 
 	return fetchUrl;
+}
+
+function updatePagination({ limit, skip, total }) {
+	// total = 100
+	// limit = 10
+	// skip = 0
+	// pageTotal = 100/10 = 10
+	// pageCurrent = 100/0 + 1 = 1
+
+	let pageTotal = Math.round(total / limit);
+	let pageCurrent = 1;
+	if (skip > 0) {
+		pageCurrent = Math.round(skip / limit) + 1;
+	}
+
+	// console.log(
+	// 	'productStore',
+	// 	'updatePagination',
+	// 	'total',
+	// 	total,
+	// 	'limit',
+	// 	limit,
+	// 	'skip',
+	// 	skip,
+	// 	'pageCurrent',
+	// 	pageCurrent,
+	// 	'pageTotal',
+	// 	pageTotal
+	// );
+
+	pagination.set({ limit, skip, total, pageTotal, pageCurrent });
 }

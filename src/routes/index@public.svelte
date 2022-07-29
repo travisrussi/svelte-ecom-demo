@@ -9,7 +9,7 @@
 		currentSearch,
 		categories,
 		products,
-		searchResult
+		pagination
 	} from '../stores/productStore.js';
 	loadCategories();
 	loadProducts({ take: 0, limit: 10 });
@@ -22,6 +22,11 @@
 	const setSearch = (search) => {
 		// console.log('index', 'setSearch', search);
 		setCurrentSearch(search);
+	};
+
+	const setPage = (pageNum) => {
+		console.log('index', 'setPage', pageNum, 'limit', $pagination.limit);
+		loadProducts({ skip: (pageNum - 1) * $pagination.limit });
 	};
 </script>
 
@@ -272,47 +277,48 @@
 		<!--Section: Products v.3-->
 
 		<!--Pagination-->
-		<nav class="d-flex justify-content-center wow fadeIn">
-			<div>Total: {$searchResult.total}</div>
-			<div>Skip: {$searchResult.skip}</div>
-			<div>Limit: {$searchResult.limit}</div>
+		{#if $pagination.pageTotal > 1}
+			<nav class="d-flex justify-content-center wow fadeIn">
+				<!-- <div>Total: {$pagination.total}</div> -->
+				<!-- <div>Skip: {$pagination.skip}</div> -->
+				<!-- <div>Limit: {$pagination.limit}</div> -->
+				<!-- <div>PageTotal: {$pagination.pageTotal}</div> -->
+				<!-- <div>PageCurrent: {$pagination.pageCurrent}</div> -->
 
-			<ul class="pagination pg-blue">
-				<!--Arrow left-->
-				<li class="page-item disabled">
-					<a class="page-link" href="#" aria-label="Previous">
-						<span aria-hidden="true">&laquo;</span>
-						<span class="sr-only">Previous</span>
-					</a>
-				</li>
+				<ul class="pagination pg-blue">
+					<!--Arrow left-->
+					<li class="page-item  {$pagination.pageCurrent <= 1 ? 'disabled' : ''}">
+						<a
+							class="page-link"
+							on:click={() => setPage($pagination.pageCurrent - 1)}
+							aria-label="Previous"
+						>
+							<span aria-hidden="true">&laquo;</span>
+							<span class="sr-only">Previous</span>
+						</a>
+					</li>
 
-				<li class="page-item active">
-					<a class="page-link" href="#"
-						>1
-						<span class="sr-only">(current)</span>
-					</a>
-				</li>
-				<li class="page-item">
-					<a class="page-link" href="#">2</a>
-				</li>
-				<li class="page-item">
-					<a class="page-link" href="#">3</a>
-				</li>
-				<li class="page-item">
-					<a class="page-link" href="#">4</a>
-				</li>
-				<li class="page-item">
-					<a class="page-link" href="#">5</a>
-				</li>
+					{#each Array($pagination.pageTotal) as _, pageNum}
+						<li class="page-item {pageNum + 1 === $pagination.pageCurrent ? 'active' : ''}">
+							<a class="page-link" on:click={() => setPage(pageNum + 1)}>{pageNum + 1} </a>
+						</li>
+					{/each}
 
-				<li class="page-item">
-					<a class="page-link" href="#" aria-label="Next">
-						<span aria-hidden="true">&raquo;</span>
-						<span class="sr-only">Next</span>
-					</a>
-				</li>
-			</ul>
-		</nav>
+					<li
+						class="page-item  {$pagination.pageCurrent === $pagination.pageTotal ? 'disabled' : ''}"
+					>
+						<a
+							class="page-link"
+							on:click={() => setPage($pagination.pageCurrent + 1)}
+							aria-label="Next"
+						>
+							<span aria-hidden="true">&raquo;</span>
+							<span class="sr-only">Next</span>
+						</a>
+					</li>
+				</ul>
+			</nav>
+		{/if}
 		<!--Pagination-->
 	</div>
 </main>
