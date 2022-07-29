@@ -26,3 +26,7 @@ Some instructions on getting the deployment working properly:
 
 [Svelte Node.js Adapter](https://kit.svelte.dev/docs/adapters#supported-environments-node-js)
 [Deploying to Heroku with SvelteKit](https://dev.to/nostro/deploying-to-heroku-with-sveltekit-3350)
+
+Live demo: 
+
+[https://svelte-ecom.herokuapp.com/](https://svelte-ecom.herokuapp.com/)
