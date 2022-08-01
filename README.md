@@ -38,3 +38,9 @@ The initial build doesn't cover any of these issues:
 - Logging
 - Feature Flag Integration
 - Unit/E2E Testing
+
+## References
+
+This is a good demo of using Stores:
+
+[SvelteKit Supabase Todo App with Tailwind](https://github.com/jamesqquick/svelte-kit-supabase-todo-app-with-tailwind)
